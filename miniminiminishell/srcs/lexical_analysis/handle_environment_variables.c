@@ -18,14 +18,14 @@ static int	set_env_idx(char *str, int *dollar_idx, int *next_idx)
 	return (1);
 }
 
-static char	**get_exit_status_and_split(t_info *info)
+static char	**get_exit_status_and_split(void)
 {
 	char	**strs;
 
 	strs = malloc(sizeof(char *) * 4);
 	if (!strs)
 		return (NULL);
-	strs[0] = ft_itoa(info->exit_status);
+	strs[0] = ft_itoa(g_exit_status);
 	strs[1] = ft_strdup(" ");
 	strs[2] = ft_strdup("");
 	strs[3] = 0;
@@ -68,7 +68,7 @@ static char	**seperate_environment_variables(t_info *info, char *str)
 		return (NULL);
 	strs[0] = ft_substr(str, 0, dollar_idx);
 	if (str[dollar_idx + 1] == '?')
-		env_value = get_exit_status_and_split(info);
+		env_value = get_exit_status_and_split();
 	else
 		env_value = interpret_and_split_env(info->env_list, str, dollar_idx, next_idx);
 	strs[1] = ft_strdup(env_value[0]);

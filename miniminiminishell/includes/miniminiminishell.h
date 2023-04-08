@@ -22,10 +22,13 @@
 # define MAGENTA	"\033[1;95m"
 # define CYAN		"\033[1;96m"
 
+int	g_exit_status; // 시그널 받을 때도 바뀌어야 함
+
 typedef struct s_info
 {
+	int				stdin;
+	int				stdout;
 	int				syntax_error;
-	int				exit_status; // 시그널 받을 때도 바뀌어야 함
 	struct termios  ms_termios;
 	t_env_node		*env_list;
 	char			**path_list;//execve(명령어, 인자, 환경변수)
@@ -35,7 +38,7 @@ typedef struct s_info
 typedef struct s_redirection
 {
 	char	*type;
-	char	*file;//////////////
+	char	*file;
 	struct 	s_redirection *next;
 }	t_redirection;
 
@@ -44,8 +47,6 @@ typedef struct s_cmd
 	char			**argv;
 	t_redirection	*redirection;
 	int				pipe[2];
-	// int				in;
-	// int				out;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -80,7 +81,9 @@ int				ms_export(t_info *info, char **argv);
 int				ms_pwd(void);
 int				ms_unset(t_info *info, char **argv);
 
-void			ms_error(char *blame);
+void			ms_error(char *blame, char *blame2);
+void			parent_handler(int signum);
+void			child_handler(int signum);
 void			set_signal(void);
 int				is_tokenable_sep(char c);
 void			free_2d_arr(char **arr);

@@ -26,7 +26,7 @@ static char	*interpret_env_from_d_quotes(t_info *info, char *str)
 		if (str[dollar_idx + 1] == '?')
 		{
 			next_idx = dollar_idx + 2;
-			str_arr[1] = ft_itoa(info->exit_status);
+			str_arr[1] = ft_itoa(g_exit_status);
 		}
 		else
 		{
@@ -53,7 +53,7 @@ static int	set_quotes_idxs(t_info *info, char *str, int *start_idx, int *end_idx
 		*end_idx += 1;
 	if (str[*end_idx] == '\0')
 	{
-		printf("minishell: quotes error\n");
+		ft_putstr_fd("miniminiminishell: quotes error\n", STDERR_FILENO);
 		info->syntax_error = 1;
 		return (0);
 	}

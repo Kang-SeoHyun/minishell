@@ -6,8 +6,8 @@ int ms_pwd(void)
 
 	if (getcwd(current_working_dir, 1024) == NULL)
 	{
-		perror(strerror(errno));
-		return (-1);
+		ms_error("pwd", NULL);
+		return (1);
 	}
 	printf("%s\n", current_working_dir);
 	return (0);

@@ -1,17 +1,39 @@
 #include "../../includes/miniminiminishell.h"
 
-void	ms_error(char *blame)
+void	ms_error(char *blame, char *blame2)
 {
-	ft_putstr_fd("minishell :", 2);
-	ft_putstr_fd(blame, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(blame, STDERR_FILENO);
+	if (blame2)
+	{
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(blame2, STDERR_FILENO);
+	}
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 }
 
 static void	signal_handler(int signum)
 {
-	if (signum == SIGINT)
-		printf("🍄 minishell$ \n");
+	(void)signum;
+	printf("🍄 minishell$ \n");
+	g_exit_status = 1;
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
+
+void	parent_handler(int signum)
+{
+	(void)signum;
+	printf("\n");
+}
+
+///////오ㅐ냐면 우리 히어독 핸들러만들었더니 쓸모 없어졌어! 에이씨 퉤
+void	child_handler(int signum)///////////뺼까말까 마지막에 결정해!!
+{
+	(void)signum;
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	rl_redisplay();

@@ -30,3 +30,8 @@ int	ms_echo(char **argv)
 		printf("\n");
 	return (0);
 }
+/*
+
+1. single cmd => 빌트인 사용했으면 그 끝에;
+	만약에 포크 했으면 wait 부모에서 받으면 됨 wait(info->status);
+*/
