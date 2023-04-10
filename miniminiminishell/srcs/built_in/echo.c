@@ -1,5 +1,17 @@
 #include "../../includes/miniminiminishell.h"
 
+static void	do_echo(char **argv, int idx)
+{
+	while (argv[++idx])
+	{
+		if (argv[idx][0] == '\0')
+			continue ;
+		printf("%s", argv[idx]);
+		if (argv[idx + 1])
+			printf(" ");
+	}
+}
+
 int	ms_echo(char **argv)
 {
 	int	idx;
@@ -18,20 +30,8 @@ int	ms_echo(char **argv)
 		if (argv[1][n_idx] == '\0')
 			idx++;
 	}
-	while (argv[++idx])
-	{
-		if (argv[idx][0] == '\0')
-			continue ;
-		printf("%s", argv[idx]);
-		if (argv[idx + 1])
-			printf(" ");
-	}
+	do_echo(argv, idx);
 	if (newline)
 		printf("\n");
 	return (0);
 }
-/*
-
-1. single cmd => 빌트인 사용했으면 그 끝에;
-	만약에 포크 했으면 wait 부모에서 받으면 됨 wait(info->status);
-*/

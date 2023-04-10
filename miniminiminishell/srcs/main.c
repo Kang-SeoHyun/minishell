@@ -11,7 +11,7 @@ static void	initialize(t_info *info_ptr, char **envp)
 	while (ft_strncmp(*envp, "PATH=", 5))
 		envp++;
 	info_ptr->path_list = ft_split(*envp + 5, ':');
-	info_ptr->home_path = free_env_key_and_get_env_value(info_ptr->env_list, ft_strdup("HOME"));
+	// info_ptr->home_path = free_env_key_and_get_env_value(info_ptr->env_list, ft_strdup("HOME"));
 }
 
 void	print_token_list(t_token *token_list)///////////////
@@ -63,11 +63,11 @@ void	run_minishell(t_info *info)
 	t_token	*token_list;
 	t_cmd	*cmd_list;
 	char	*input;
-	printf("엿같은 미치광이 쉘이 시작됐어용\n");
+	printf("💖💫🌷🌼🐰🧸🎀🥨헬로🏅가이즈🌈🍟🍣✨💖\n");
 	while (1)
 	{
 		set_signal();
-		input = readline("🍄 minishell$ ");
+		input = readline("🍄 minishell-1.0$ ");
 		if (!input) // ctrl + D
 		{
 			printf("\033[1A");

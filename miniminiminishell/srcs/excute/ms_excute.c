@@ -97,15 +97,18 @@ int	execute_builtin(t_info *info, t_cmd *cmd_list)
 
 int	check_builtin(t_info *info, t_cmd *cmd_list)
 {
+	char	*cmd;
+
 	if (cmd_list->argv == NULL)
 		return (0);
-	if (ft_strncmp(cmd_list->argv[0], "cd", 2) == 0 \
-		|| ft_strncmp(cmd_list->argv[0], "echo", 4) == 0 \
-		|| ft_strncmp(cmd_list->argv[0], "env", 3) == 0 \
-		|| ft_strncmp(cmd_list->argv[0], "exit", 4) == 0 \
-		|| ft_strncmp(cmd_list->argv[0], "export", 6) == 0 \
-		|| ft_strncmp(cmd_list->argv[0], "pwd", 3) == 0 \
-		|| ft_strncmp(cmd_list->argv[0], "unset", 5) == 0)
+	cmd = cmd_list->argv[0];
+	if ((ft_strlen(cmd) == 2 && ft_strncmp(cmd, "cd", 2) == 0) \
+		|| (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "echo", 4) == 0) \
+		|| (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "env", 3) == 0) \
+		|| (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "exit", 4) == 0) \
+		|| (ft_strlen(cmd) == 6 && ft_strncmp(cmd, "export", 6) == 0) \
+		|| (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "pwd", 3) == 0) \
+		|| (ft_strlen(cmd) == 5 && ft_strncmp(cmd, "unset", 5) == 0))
 		return (execute_builtin(info, cmd_list));
 	return (0);
 }

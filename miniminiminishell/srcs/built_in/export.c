@@ -7,7 +7,8 @@ static int	change_value_if_key_exist(t_info *info, char *key, char *value)
 	cur = info->env_list;
 	while (cur)
 	{
-		if (ft_strncmp(cur->key, key, ft_strlen(key)) == 0)
+		if (ft_strlen(cur->key) == ft_strlen(key) \
+		&& ft_strncmp(cur->key, key, ft_strlen(key)) == 0)
 		{
 			if (ft_strncmp(key, "PATH", 4) == 0)
 			{
@@ -26,7 +27,10 @@ static int	change_value_if_key_exist(t_info *info, char *key, char *value)
 	}
 	return (0);
 }
-
+/*
+	a="echo a" {}[echo][-][a]{}
+	a$2=ko [a=ko] [a][=ko] => [a][=ko] {a}[][-][]{=ko}
+*/
 static void	print_env_list(t_env_node *env_list)
 {
 	while(env_list)
@@ -39,12 +43,28 @@ static void	print_env_list(t_env_node *env_list)
 	}
 }
 
-static int	set_error_flag(t_env_node *env_node, char *str, int *error_flag)
+int	is_valid_key(char *key)
 {
-	if (ft_isdigit(str[0]))
+	int	idx;
+
+	if (ft_isalpha(key[0]) == 0)
+		return (0);
+	idx = 0;
+	while (key[++idx])
+		if (ft_isalnum(key[idx]) == 0)
+			return (0);
+	return (1);
+}
+
+static int	set_error_flag(t_env_node *env_node, int *error_flag)
+{
+	char	*key;
+
+	key = env_node->key;
+	if (!is_valid_key(key))
 	{
 		ft_putstr_fd("minishell: export: \'", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(key, STDERR_FILENO);
 		ft_putstr_fd("\': not a valid identifier\n", STDERR_FILENO);
 		free_env_list(env_node);
 		*error_flag = 1;
@@ -63,8 +83,10 @@ int	ms_export(t_info *info, char **argv)
 	error_flag = 0;
 	while (argv[++idx])
 	{
+		if (argv[idx][0] == '\0')
+			continue;
 		env_node = create_env_node(argv[idx]);
-		if (set_error_flag(env_node, argv[idx], &error_flag))
+		if (set_error_flag(env_node, &error_flag))
 			continue ;
 		else if (change_value_if_key_exist(info, env_node->key, env_node->value))
 			free_env_list(env_node);

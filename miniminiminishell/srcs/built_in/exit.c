@@ -5,7 +5,7 @@ int	ms_exit(t_info *info, t_cmd *cmd_list)
 {
 	free_env_list(info->env_list);
 	free_2d_arr(info->path_list);
-	free(info->home_path);
+	// free(info->home_path);
 	if (cmd_list)
 	{
 		if (cmd_list->prev == NULL && cmd_list->next == NULL)

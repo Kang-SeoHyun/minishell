@@ -55,7 +55,7 @@ t_token	*lexical_analysis(t_info *info, char *input)
 	// 10. remove space token
 	remove_space_token(&token_list);
 	// printf("=== 10 SPACE 지우기 =============================\n");
-	// print_token_list(token_list);
+	print_token_list(token_list);
 	
 	// printf("\n");
 	return (token_list);

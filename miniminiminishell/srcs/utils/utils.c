@@ -17,7 +17,7 @@ void	ms_error(char *blame, char *blame2)
 static void	signal_handler(int signum)
 {
 	(void)signum;
-	printf("🍄 minishell$ \n");
+	printf("🍄 minishell-1.0$ \n");
 	g_exit_status = 1;
 	rl_on_new_line();
 	rl_replace_line("", 1);
