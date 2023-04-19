@@ -1,6 +1,6 @@
-#include "../../includes/token.h"
+#include "../../includes/minishell.h"
 
-t_token	*create_token(char *string, t_token_type type) // 노드 만들기
+t_token	*create_token(char *string, t_token_type type)
 {
 	t_token	*token;
 
@@ -13,7 +13,7 @@ t_token	*create_token(char *string, t_token_type type) // 노드 만들기
 	return (token);
 }
 
-t_token	*add_token(t_token **token_list, t_token *new_token) // 토큰 리스트가 없으면 
+t_token	*add_token(t_token **token_list, t_token *new_token)
 {
 	t_token	*token_list_ptr;
 
@@ -29,12 +29,10 @@ t_token	*add_token(t_token **token_list, t_token *new_token) // 토큰 리스트
 	return (new_token);
 }
 
-// del_token이 token_list의 맨 처음이었다면 del_token free하고 token_list의 주소를 del_token->next로 바꿔줌
-// del_token을 지워주고 del_token->next를 리턴
 t_token	*delete_token(t_token *del_token, t_token **token_list)
 {
-	t_token *prev;
-	t_token *cur;
+	t_token	*prev;
+	t_token	*cur;
 
 	if (del_token == *token_list)
 	{

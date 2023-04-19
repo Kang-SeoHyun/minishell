@@ -1,13 +1,13 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 void	handle_chunk(t_token **token_list)
 {
-	t_token **head;
+	t_token	**head;
 	t_token	*cur;
 
 	head = token_list;
 	cur = *token_list;
-	while(cur)
+	while (cur)
 	{
 		if (cur->type == TOKEN_TYPE_CHUNK)
 		{

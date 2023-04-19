@@ -1,8 +1,8 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 void	remove_space_token(t_token **token_list)
 {
-	t_token **head;
+	t_token	**head;
 	t_token	*cur;
 
 	head = token_list;

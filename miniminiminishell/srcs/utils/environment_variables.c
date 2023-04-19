@@ -1,5 +1,4 @@
-#include "../../includes/environment_variables.h"
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 t_env_node	*create_env_node(char *str)
 {
@@ -14,7 +13,8 @@ t_env_node	*create_env_node(char *str)
 		equal_idx++;
 	env_node->key = ft_substr(str, 0, equal_idx);
 	if (str[equal_idx] != '\0')
-		env_node->value = ft_substr(str, equal_idx + 1, ft_strlen(str) - equal_idx - 1);
+		env_node->value = ft_substr(str, equal_idx + 1,
+				ft_strlen(str) - equal_idx - 1);
 	else
 		env_node->value = NULL;
 	env_node->next = NULL;
@@ -50,7 +50,8 @@ char	*free_env_key_and_get_env_value(t_env_node *env_list, char *env_key)
 {
 	char	*env_value;
 
-	while (env_list && ft_strncmp(env_list->key, env_key, ft_strlen(env_key)))
+	while (env_list && (ft_strlen(env_list->key) != ft_strlen(env_key) \
+	|| ft_strncmp(env_list->key, env_key, ft_strlen(env_list->key))))
 		env_list = env_list->next;
 	if (env_list)
 		env_value = ft_strdup(env_list->value);
@@ -73,33 +74,4 @@ void	free_env_list(t_env_node *env_list)
 			free(temp->value);
 		free(temp);
 	}
-}
-
-char **env_list_to_envp(t_env_node *env_list)
-{
-	char		**envp;
-	int			size;
-	int			idx;
-	t_env_node *tmp;
-
-	tmp = env_list;
-	size = 0;
-	while (tmp)
-	{
-		size++;
-		tmp = tmp->next;
-	}
-	if (size == 0)
-		return (NULL);
-	envp = malloc(sizeof(char *) * (size + 1));
-	if (!envp)
-		return (NULL);
-	idx = -1;
-	while (++idx < size)
-	{
-		envp[idx] = join_strs(env_list->key, "=", env_list->value);
-		env_list = env_list->next;
-	}
-	envp[idx] = 0;
-	return (envp);
 }

@@ -1,9 +1,9 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 t_cmd	*make_cmd_node(void)
 {
 	t_cmd	*cmd_node;
-	
+
 	cmd_node = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd_node)
 		return (NULL);
@@ -28,7 +28,7 @@ t_redirection	*make_redirection_node(t_token *token_list)
 int	get_argv_cnt(t_token *token_list)
 {
 	int	cnt;
-	
+
 	cnt = 0;
 	while (token_list && token_list->type != TOKEN_TYPE_PIPELINE)
 	{

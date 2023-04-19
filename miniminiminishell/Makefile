@@ -1,26 +1,27 @@
 # compile options
-NAME		= miniminiminishell
+NAME		= minishell
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror #-g3 -fsanitize=address
 RM			= rm -f
 LIBFT		= -Llibft -lft
-LDFLAGS		= -lreadline -L/${HOME}/.brew/opt/readline/lib
-CPPFLAGS	= -I/${HOME}/.brew/opt/readline/include
-# LDFLAGS		= -lreadline -L/opt/homebrew/opt/readline/lib
-# CPPFLAGS	= -I/opt/homebrew/opt/readline/include
-
+LDFLAGS		= -lreadline -L$(shell brew --prefix readline)/lib
+CPPFLAGS	= -I$(shell brew --prefix readline)/include
 
 # source files
 MS_DIR		= srcs/
 
 UTILS		= utils/environment_variables.c \
-			  utils/token.c \
-			  utils/utils.c	\
+			  utils/token.c 	\
+			  utils/utils.c		\
+			  utils/utils2.c	\
+			  utils/signal.c
 
 LEXICAL		= lexical_analysis/lexical_analysis.c	\
 			  lexical_analysis/handle_heredoc_limiter.c	\
+			  lexical_analysis/seperate_quotes.c \
 			  lexical_analysis/handle_quotes.c \
-			  lexical_analysis/handle_environment_variables.c \
+			  lexical_analysis/seperate_environment_variables.c \
+			  lexical_analysis/handle_environment_variables.c	\
 			  lexical_analysis/seperate_token_by_arg.c \
 			  lexical_analysis/handle_chunk.c \
 			  lexical_analysis/merge_continuous_argv_token.c \
@@ -29,8 +30,11 @@ LEXICAL		= lexical_analysis/lexical_analysis.c	\
 
 SYNTAX		= syntax_analysis/syntax_analysis.c \
 
-EXCUTE		= excute/ms_excute.c \
-			  excute/set_redirection_fd.c \
+EXCUTE		= execute/ms_execute.c \
+			  execute/single_cmd.c \
+			  execute/multiple_cmd.c \
+			  execute/set_redirection_fd.c \
+			  execute/heredoc.c\
 
 CMD_LIST	= cmd_list/create_cmd_list.c \
 			  cmd_list/cmd_utils.c 		\

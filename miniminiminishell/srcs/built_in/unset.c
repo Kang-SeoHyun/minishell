@@ -1,4 +1,4 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 static t_env_node	*delete_env_list(t_env_node *env_list)
 {
@@ -18,17 +18,21 @@ static void	set_error_flag(char *str, int *error_flag)
 	{
 		ft_putstr_fd("minishell: unset: \'", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd("\': not a valid identifier\n", STDERR_FILENO);
+		ft_putendl_fd("\': not a valid identifier", STDERR_FILENO);
 		*error_flag = 1;
 	}
 }
 
 static int	do_unset(t_info *info, t_env_node *cur, t_env_node *prev, char *str)
 {
-	if (ft_strncmp(cur->key, str, ft_strlen(str)) == 0)
+	if (ft_strlen(cur->key) == ft_strlen(str) \
+	&& ft_strncmp(cur->key, str, ft_strlen(str)) == 0)
 	{
 		if (ft_strncmp(cur->key, "PATH", 4) == 0)
+		{
 			free_2d_arr(info->path_list);
+			info->path_list = NULL;
+		}
 		if (prev == NULL)
 			info->env_list = delete_env_list(cur);
 		else
@@ -40,8 +44,8 @@ static int	do_unset(t_info *info, t_env_node *cur, t_env_node *prev, char *str)
 
 int	ms_unset(t_info *info, char **argv)
 {
-	t_env_node *cur;
-	t_env_node *prev;
+	t_env_node	*cur;
+	t_env_node	*prev;
 	int			idx;
 	int			error_flag;
 
@@ -50,7 +54,7 @@ int	ms_unset(t_info *info, char **argv)
 	while (argv[++idx])
 	{
 		set_error_flag(argv[idx], &error_flag);
-	    cur = info->env_list;
+		cur = info->env_list;
 		prev = NULL;
 		while (cur)
 		{

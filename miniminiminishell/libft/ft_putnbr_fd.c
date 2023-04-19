@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/07 01:30:31 by jikoo             #+#    #+#             */
-/*   Updated: 2023/03/07 01:40:46 by jikoo            ###   ########.fr       */
+/*   Created: 2023/04/19 15:14:46 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 15:14:48 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 void	ft_putnbr_fd(int n, int fd)
 {
-	long long num;
+	long long	num;
 
 	num = (long long)n;
 	if (num < 0)

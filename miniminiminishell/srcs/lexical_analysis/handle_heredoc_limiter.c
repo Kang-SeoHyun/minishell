@@ -1,6 +1,7 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
-static int		handle_quotes_in_limiter(t_info *info, t_token *list, char *s, int start_idx)
+static int	handle_quotes_in_limiter(t_info *info, t_token *list,
+	char *s, int start_idx)
 {
 	int		offset;
 	char	*string;
@@ -20,7 +21,8 @@ static int		handle_quotes_in_limiter(t_info *info, t_token *list, char *s, int s
 	return (start_idx + offset + 1);
 }
 
-static int		handle_heredoc_arg(t_info *info, t_token *list, char *s, int start_idx)
+static int	handle_heredoc_arg(t_info *info,
+	t_token *list, char *s, int start_idx)
 {
 	int		offset;
 	char	*string;
@@ -32,8 +34,10 @@ static int		handle_heredoc_arg(t_info *info, t_token *list, char *s, int start_i
 		else
 		{
 			offset = 1;
-			while (s[start_idx + offset] && !is_tokenable_sep(s[start_idx + offset]) 
-				&& s[start_idx + offset] != '\'' && s[start_idx + offset] != '\"')
+			while (s[start_idx + offset]
+				&& !is_tokenable_sep(s[start_idx + offset])
+				&& s[start_idx + offset] != '\''
+				&& s[start_idx + offset] != '\"')
 				offset++;
 			string = ft_substr(s, start_idx, offset);
 			add_token(&list, create_token(string, TOKEN_TYPE_ARGV));

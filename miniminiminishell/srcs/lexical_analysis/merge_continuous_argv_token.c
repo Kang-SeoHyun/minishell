@@ -1,14 +1,14 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 void	merge_continuous_argv_token(t_token **token_list)
 {
-	t_token **head;
+	t_token	**head;
 	t_token	*cur;
 	char	*merge_str;
 
 	head = token_list;
 	cur = *token_list;
-	while (cur->next)
+	while (cur && cur->next)
 	{
 		if (cur->type == TOKEN_TYPE_ARGV && cur->next->type == TOKEN_TYPE_ARGV)
 		{

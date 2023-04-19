@@ -1,4 +1,4 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 static void	set_arg_idxs(char *str, char *arg, int *start_idx, int *end_idx)
 {
@@ -23,7 +23,7 @@ static char	**seperate_by_arg(char *str, char *arg)
 	strs = malloc(sizeof(char *) * 4);
 	if (!strs)
 		return (NULL);
-	strs[0] = ft_substr(str, 0, start_idx );
+	strs[0] = ft_substr(str, 0, start_idx);
 	strs[1] = ft_substr(str, start_idx, end_idx - start_idx);
 	strs[2] = ft_substr(str, end_idx, ft_strlen(str) - end_idx);
 	strs[3] = 0;
@@ -44,7 +44,8 @@ static void	convert_result_to_token(t_token *token_list, char **strs, char *arg)
 		add_token(&token_list, create_token(strs[1], TOKEN_TYPE_PIPELINE));
 	else
 		add_token(&token_list, create_token(strs[1], TOKEN_TYPE_REDIRECTION));
-	token_list = add_token(&token_list, create_token(strs[2], TOKEN_TYPE_CHUNK));
+	token_list = add_token(&token_list, create_token(strs[2],
+				TOKEN_TYPE_CHUNK));
 	free_2d_arr(strs);
 	token_list->next = temp;
 }
@@ -55,7 +56,6 @@ void	seperate_token_by_arg(t_token *token_list, char *arg)
 
 	while (token_list)
 	{
-		// CHUNK => CHUNK, XXX, CHUNK
 		if (token_list->type == TOKEN_TYPE_CHUNK)
 		{
 			strs = seperate_by_arg(token_list->string, arg);

@@ -1,9 +1,9 @@
-#include "../../includes/miniminiminishell.h"
+#include "../../includes/minishell.h"
 
 static char	**fill_argv(t_token *token_list)
 {
 	int		idx;
-	char 	**argv;
+	char	**argv;
 
 	argv = (char **)malloc(sizeof(char *) * (get_argv_cnt(token_list) + 1));
 	if (!argv)
@@ -23,8 +23,8 @@ static char	**fill_argv(t_token *token_list)
 
 static void	fill_redirection(t_token *token_list, t_cmd **cmd_list)
 {
-	t_redirection *cur;
-	
+	t_redirection	*cur;
+
 	if (!(*cmd_list)->redirection)
 		(*cmd_list)->redirection = make_redirection_node(token_list);
 	else
@@ -45,7 +45,7 @@ t_cmd	*create_cmd_list(t_token *token_list)
 	head = cmd_list;
 	while (token_list)
 	{
-		if (cmd_list->argv == NULL  && token_list->type == TOKEN_TYPE_ARGV)
+		if (cmd_list->argv == NULL && token_list->type == TOKEN_TYPE_ARGV)
 			cmd_list->argv = fill_argv(token_list);
 		else if (token_list->type == TOKEN_TYPE_REDIRECTION)
 		{
