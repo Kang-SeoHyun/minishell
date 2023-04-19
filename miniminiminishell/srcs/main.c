@@ -75,17 +75,17 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	printf(RED
-		"\n          ,--.        ,--.       ,--.            ,--.,--.\n"RESET);
-	printf(YELLOW
-		",--,--,--.`--',--,--, `--' ,---. |  ,---.  ,---. |  ||  |\n"RESET);
-	printf(GREEN
-		"|        |,--.|      \\,--.(  .-' |  .-.  || .-. :|  ||  |\n"RESET);
-	printf(CYAN
-		"|  |  |  ||  ||  ||  ||  |.-'  `)|  | |  |\\   --.|  ||  |\n"RESET);
-	printf(BLUE
-		"`--`--`--'`--'`--''--'`--'`----' `--' `--' `----'`--'`--'\n"RESET);
-	printf(MAGENTA"By: jikoo jahlee donghyk2 seokang\n\n"RESET);
+	ft_putendl_fd(RED
+		"\n          ,--.        ,--.       ,--.            ,--.,--."RESET, STDERR_FILENO);
+	ft_putendl_fd(YELLOW
+		",--,--,--.`--',--,--, `--' ,---. |  ,---.  ,---. |  ||  |"RESET, STDERR_FILENO);
+	ft_putendl_fd(GREEN
+		"|        |,--.|      \\,--.(  .-' |  .-.  || .-. :|  ||  |"RESET, STDERR_FILENO);
+	ft_putendl_fd(CYAN
+		"|  |  |  ||  ||  ||  ||  |.-'  `)|  | |  |\\   --.|  ||  |"RESET, STDERR_FILENO);
+	ft_putendl_fd(BLUE
+		"`--`--`--'`--'`--''--'`--'`----' `--' `--' `----'`--'`--'"RESET, STDERR_FILENO);
+	ft_putendl_fd(MAGENTA"By: jikoo jahlee donghyk2 seokang\n"RESET, STDERR_FILENO);
 	initialize(&info, envp);
 	run_minishell(&info);
 	return (0);

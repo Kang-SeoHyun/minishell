@@ -37,7 +37,7 @@ void	execute_single_cmd(t_info *info, t_cmd *cmd_list)
 		}
 		else
 		{
-			signal(SIGINT, parent_handler);
+			signal(SIGINT, SIG_IGN);
 			wait(&(g_exit_status));
 			if (WIFSIGNALED(g_exit_status))
 				g_exit_status = 128 + WTERMSIG(g_exit_status);
