@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:49:59 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:54:52 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -113,7 +125,7 @@ char			*join_strs(char *str1, char *str2, char *str3);
 t_env_node		*create_env_node(char *str);
 void			add_env_node(t_env_node **envp_list, t_env_node *new_envp_node);
 t_env_node		*init_env_list(char **envp);
-char			*free_env_key_and_get_env_value(t_env_node *env_list,
+char			*get_env_value_and_free_env_key(t_env_node *env_list,
 					char *env_key);
 void			free_env_list(t_env_node *envp_list);
 
@@ -125,7 +137,6 @@ void			free_token_list(t_token *token_list);
 
 /* utils dir - signal.c */
 void			signal_handler(int signum);
-void			parent_handler(int signum);
 void			heredoc_handler(int signum);
 void			quit_handler(int signum);
 void			set_signal(void);

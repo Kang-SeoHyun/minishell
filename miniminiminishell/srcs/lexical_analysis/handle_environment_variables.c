@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_environment_variables.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:48:50 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:54:46 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	convert_result_to_token(t_token *token_list, char **strs)
@@ -21,6 +33,7 @@ static void	convert_result_to_token(t_token *token_list, char **strs)
 	token_list->next = temp;
 }
 
+// CHUNK => CHUNK, ARGV, SPACE, ARGV, CHUNK
 void	handle_environment_variables(t_info *info, t_token *token_list)
 {
 	char	**strs;

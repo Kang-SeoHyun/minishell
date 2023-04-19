@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_heredoc_limiter.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:48:54 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:54:41 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	handle_quotes_in_limiter(t_info *info, t_token *list,
@@ -11,7 +23,7 @@ static int	handle_quotes_in_limiter(t_info *info, t_token *list,
 		offset++;
 	if (s[start_idx + offset] == '\0')
 	{
-		ft_putstr_fd("miniminiminishell: quotes error\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: quotes error\n", STDERR_FILENO);
 		info->syntax_error = 1;
 	}
 	string = ft_substr(s, start_idx + 1, offset - 1);
@@ -90,6 +102,7 @@ static void	init_heredoc(t_info *info, t_token *list, char *s)
 	free_strs(string, s, NULL, NULL);
 }
 
+// CHUNK => CHUNK(<<), ARGV(limiter), CHUNK
 void	handle_heredoc_limiter(t_info *info, t_token *token_list)
 {
 	while (token_list)

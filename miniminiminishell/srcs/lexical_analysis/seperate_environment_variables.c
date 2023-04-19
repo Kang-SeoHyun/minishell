@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   seperate_environment_variables.c                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:49:10 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:52:08 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	set_env_idx(char *str, int *dollar_idx, int *next_idx)
@@ -46,7 +58,7 @@ static char	**interpret_and_split_env(t_env_node *env_list, char *str,
 	if (!strs)
 		return (NULL);
 	env_value = ft_substr(str, dollar_idx + 1, next_idx - dollar_idx - 1);
-	env_value = free_env_key_and_get_env_value(env_list, env_value);
+	env_value = get_env_value_and_free_env_key(env_list, env_value);
 	space_idx = 0;
 	while (env_value[space_idx] && env_value[space_idx] != ' ')
 		space_idx++;

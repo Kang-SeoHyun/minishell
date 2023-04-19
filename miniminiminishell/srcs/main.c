@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:47:29 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:47:41 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 static void	set_old_pwd(t_info *info)
@@ -76,16 +88,22 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	ft_putendl_fd(RED
-		"\n          ,--.        ,--.       ,--.            ,--.,--."RESET, STDERR_FILENO);
+		"\n          ,--.        ,--.       ,--.            ,--.,--."RESET,
+		STDOUT_FILENO);
 	ft_putendl_fd(YELLOW
-		",--,--,--.`--',--,--, `--' ,---. |  ,---.  ,---. |  ||  |"RESET, STDERR_FILENO);
+		",--,--,--.`--',--,--, `--' ,---. |  ,---.  ,---. |  ||  |"RESET,
+		STDOUT_FILENO);
 	ft_putendl_fd(GREEN
-		"|        |,--.|      \\,--.(  .-' |  .-.  || .-. :|  ||  |"RESET, STDERR_FILENO);
+		"|        |,--.|      \\,--.(  .-' |  .-.  || .-. :|  ||  |"RESET,
+		STDOUT_FILENO);
 	ft_putendl_fd(CYAN
-		"|  |  |  ||  ||  ||  ||  |.-'  `)|  | |  |\\   --.|  ||  |"RESET, STDERR_FILENO);
+		"|  |  |  ||  ||  ||  ||  |.-'  `)|  | |  |\\   --.|  ||  |"RESET,
+		STDOUT_FILENO);
 	ft_putendl_fd(BLUE
-		"`--`--`--'`--'`--''--'`--'`----' `--' `--' `----'`--'`--'"RESET, STDERR_FILENO);
-	ft_putendl_fd(MAGENTA"By: jikoo jahlee donghyk2 seokang\n"RESET, STDERR_FILENO);
+		"`--`--`--'`--'`--''--'`--'`----' `--' `--' `----'`--'`--'"RESET,
+		STDOUT_FILENO);
+	ft_putendl_fd(MAGENTA"By: jikoo jahlee donghyk2 seokang\n"RESET,
+		STDOUT_FILENO);
 	initialize(&info, envp);
 	run_minishell(&info);
 	return (0);

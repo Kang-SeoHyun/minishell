@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:47:41 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:54:49 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	set_pwd(t_info *info, char *key)
@@ -28,7 +40,7 @@ int	ms_cd(t_info *info, char **argv)
 	}
 	if (argv[1] == NULL)
 	{
-		path = free_env_key_and_get_env_value(info->env_list,
+		path = get_env_value_and_free_env_key(info->env_list,
 				ft_strdup("HOME"));
 		if (path[0] == '\0')
 		{

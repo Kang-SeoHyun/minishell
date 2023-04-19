@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   seperate_token_by_arg.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:49:22 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:52:22 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	set_arg_idxs(char *str, char *arg, int *start_idx, int *end_idx)
@@ -50,6 +62,7 @@ static void	convert_result_to_token(t_token *token_list, char **strs, char *arg)
 	token_list->next = temp;
 }
 
+// CHUNK => CHUNK, ???, CHUNK
 void	seperate_token_by_arg(t_token *token_list, char *arg)
 {
 	char	**strs;

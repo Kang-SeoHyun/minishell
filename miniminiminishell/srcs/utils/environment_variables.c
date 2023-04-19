@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   environment_variables.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/19 22:49:33 by jikoo             #+#    #+#             */
+/*   Updated: 2023/04/19 22:54:53 by jikoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 t_env_node	*create_env_node(char *str)
@@ -46,7 +58,7 @@ t_env_node	*init_env_list(char **envp)
 	return (env_list);
 }
 
-char	*free_env_key_and_get_env_value(t_env_node *env_list, char *env_key)
+char	*get_env_value_and_free_env_key(t_env_node *env_list, char *env_key)
 {
 	char	*env_value;
 
