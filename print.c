@@ -51,12 +51,12 @@ t_token	*lexical_analysis(t_info *info, char *input)
 
 	// 1. input -> chunk
 	token_list = create_token(input, TOKEN_TYPE_CHUNK);
-	printf("=== 1 최초의 CHUNK가 있었도다 ===================\n");
+	printf("=== 1 최초의 CHUNK가 있었도다. ===================\n");
 	print_token_list(token_list);
 
 	// 2. handle heredoc limiter
 	handle_heredoc_limiter(info, token_list);
-	printf("=== 2 heredoc limiter 처리 ======================\n");
+	printf("=== 2 heredoc limiter 처리 ======================\n");xl
 	print_token_list(token_list);
 
 	// 3. handle quotes
