@@ -6,7 +6,7 @@
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:49:15 by jikoo             #+#    #+#             */
-/*   Updated: 2023/04/19 22:52:15 by jikoo            ###   ########.fr       */
+/*   Updated: 2023/04/20 15:43:27 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,20 @@ static int	set_env_in_quotes_idx(char *str, int *dollar_idx, int *next_idx)
 	*dollar_idx = 0;
 	while (str[*dollar_idx] && str[*dollar_idx] != '$')
 		*dollar_idx += 1;
-	if (str[*dollar_idx] == '\0' || str[*dollar_idx + 1] == '\0')
+	if (str[*dollar_idx] == '\0')
 		return (0);
 	*next_idx = *dollar_idx + 1;
-	while (!is_tokenable_sep(str[*next_idx]) && str[*next_idx] != '\''
-		&& str[*next_idx] != '$')
+	if (str[*next_idx] == '?' || ft_isdigit(str[*next_idx])
+		|| (!ft_isalpha(str[*next_idx]) && str[*next_idx] != '_'))
+	{
+		*next_idx += 1;
+		return (1);
+	}
+	if (str[*next_idx] == '\0'
+		|| (!ft_isalnum(str[*next_idx]) && str[*next_idx] != '_'))
+		return (0);
+	while (str[*next_idx]
+		&& (ft_isalnum(str[*next_idx]) || str[*next_idx] == '_'))
 		*next_idx += 1;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:47:29 by jikoo             #+#    #+#             */
-/*   Updated: 2023/04/19 22:47:41 by jikoo            ###   ########.fr       */
+/*   Updated: 2023/04/21 16:01:00 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ static void	initialize(t_info *info_ptr, char **envp)
 	(&info_ptr->ms_termios)->c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(info_ptr->ms_termios));
 	info_ptr->env_list = init_env_list(envp);
-	while (ft_strncmp(*envp, "PATH=", 5))
+	while (*envp && ft_strncmp(*envp, "PATH=", 5))
 		envp++;
-	info_ptr->path_list = ft_split(*envp + 5, ':');
+	if (*envp)
+		info_ptr->path_list = ft_split(*envp + 5, ':');
+	else
+		info_ptr->path_list = NULL;
 	set_old_pwd(info_ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:48:32 by jikoo             #+#    #+#             */
-/*   Updated: 2023/04/19 22:54:48 by jikoo            ###   ########.fr       */
+/*   Updated: 2023/04/20 18:57:44 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_cmd_file(char *cmd, char **path_list)
 	char	*cmd_file;
 	char	*temp;
 
-	if (cmd == NULL)
+	if (cmd == NULL || cmd[0] == '\0')
 		return (NULL);
 	if (access(cmd, X_OK) == 0)
 		return (cmd);

@@ -6,7 +6,7 @@
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:48:02 by jikoo             #+#    #+#             */
-/*   Updated: 2023/04/19 22:54:52 by jikoo            ###   ########.fr       */
+/*   Updated: 2023/04/21 17:51:26 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static int	is_valid_key(char *key)
 {
 	int	idx;
 
-	if (ft_isalpha(key[0]) == 0)
+	if (ft_isalpha(key[0]) == 0 && key[0] != '_' )
 		return (0);
 	idx = 0;
 	while (key[++idx])
-		if (ft_isalnum(key[idx]) == 0)
+		if (ft_isalnum(key[idx]) == 0 && key[idx] != '_')
 			return (0);
 	return (1);
 }

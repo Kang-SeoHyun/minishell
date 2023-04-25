@@ -6,7 +6,7 @@
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:48:29 by jikoo             #+#    #+#             */
-/*   Updated: 2023/04/19 22:48:35 by jikoo            ###   ########.fr       */
+/*   Updated: 2023/04/21 17:47:32 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	execute_heredoc(t_info *info, t_cmd *cmd_list)
 			}
 			cur = cur->next;
 		}
-		cnt++;
 		cmd_list = cmd_list->next;
+		cnt++;
 	}
 	exit(0);
 }

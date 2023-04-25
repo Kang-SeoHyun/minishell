@@ -6,7 +6,7 @@
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:48:39 by jikoo             #+#    #+#             */
-/*   Updated: 2023/04/19 22:54:49 by jikoo            ###   ########.fr       */
+/*   Updated: 2023/04/20 22:21:35 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int	set_redirection_fd(t_cmd *cmd_list, int cnt)
 		if (result == -1)
 			return (-1);
 		cur = cur->next;
-		cnt++;
 	}
 	return (0);
 }

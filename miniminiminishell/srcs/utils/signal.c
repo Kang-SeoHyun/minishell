@@ -6,7 +6,7 @@
 /*   By: jikoo <jikoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:49:36 by jikoo             #+#    #+#             */
-/*   Updated: 2023/04/19 22:54:44 by jikoo            ###   ########.fr       */
+/*   Updated: 2023/04/20 15:07:07 by jikoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	set_signal(void)
 {
 	signal(SIGINT, default_handler);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }
