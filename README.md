@@ -1,4 +1,4 @@
-# minishell
+# 🐚 minishell 🐚
 * 나만의 mini bash shell 만들기
 * following builtins
   * echo with option -n
