@@ -120,10 +120,117 @@ Lexeme는 Input Stream(소스 코드)의 문자들 중에서 Token의 Pattern�
  
  <img width="451" alt="Screen Shot 2023-05-02 at 2 00 12 AM" src="https://user-images.githubusercontent.com/77817094/235492859-ecc4d13b-c68c-424f-811b-788640a2dd7d.png">
 
+## ☘️ 허용함수 ☘️
  
- 
- 
- 
- 
- 
- 
+### fork()
+
+fork()는 현재 실행중인 process를 복사해서 다른 process를 생성한다. 복사해서 생성하기 때문에, 가지고 있던 메모리등의 시스템 자원을 모두 원래의 process와 공유하게 된다.
+
+`fork()`를 사용하여 생성한 프로세스는 **부모 프로세스 Parent process**, 새로 생긴 프로세스는 **자식 프로세스 Child process** 라고 부른다.
+
+모든 프로세스는 (참고: 최상위 프로세스인 `init`는 pid 1을 가진다) 생성될 때 프로세스 아이디를 부여받는다. `fork()` 함수는 부모에게는 *자식 프로세스의 pid*를 반환하고, 자식에게는 *0*을 반환한다. 이를 이용하여 자식 프로세스에게 특정 명령을 시킬 수 있다.
+
+### wait, waitpid, wait3, wait4
+
+fork 함수로 자식 프로세스를 생성하면 **부모 프로세스와 자식 프로세스는 순서에 관계 없이 실행**되고, 먼저 실행을 마친 프로세스는 종료한다. 이때 좀비 프로세스(zombie procss)같은 불안정 상태의 프로세스가 발생하는데 이를 방지하려면 프로세스 동기화 함수를 수행해서 부모 프로세스와 자식 프로세스를 동기화 시켜야한다.
+
+프로세스 동기화 함수로 사용하는 것이 wait 계열 함수이다.
+
+| 함수 원형 | 기능 |
+| --- | --- |
+| pid_t wait(int *stat_loc); | 임의의 자식 프로세스의 상태값 구하기 |
+| pid_t waitpid(pid_t pid, int *stat_loc, int options); | 특정 프로세스의 상태값 구하기 |
+
+동기화 후에는 자식 프로세스는 `if(pid == 0)`일 경우의 구문을 수행한 뒤 종료하며, 부모 프로세스의 경우엔 wait()를 통하여 자식 프로세스가 종료된 뒤 나머지 구문을 수행한 뒤 종료한다.
+
+```c
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+		pid_t pid;
+
+    pid = fork();
+    if (pid == 0)
+    {
+        printf("자식 프로세스\n");
+	      exit(0);
+    }
+    if (pid > 0)
+    {
+        printf("Wait\n");
+        wait(NULL);
+        printf("Exit\n");
+    }
+  return 0;
+}
+```
+
+### signal()
+
+```c
+sig_t signal(int sig, sig_t func);
+```
+
+sig 는 시그널 번호, func 는 해당 시그널을 처리할 핸들러.
+
+- Signal이란 Software interrupt로, process에 무엇인가 발생했음을 알리는 간단한 메시지를 비동기적으로 보내는 것이다.
+- 시그널을 받았을 때
+    
+    시그널은 고유의 의미를 내포하고 있다. 이러한 시그널을 받은 실행객체인 프로세스는 그에 맞는 행동을 해야 한다. 시그널을 받은 프로세스는 다음중 한가지 행동을 취해야 한다.
+    
+    1. 그 시그널을 처리할 **등록된** 함수(handler)를 호출한다.
+    2. 시그널을 무시한다.
+    3. 시그널을 무시하지 않지만, 그렇다고 해서 특별히 함수를 호출 하지도 않는다.
+- 시그널 종료는 다양하고 `signal.h`에 정의 되어있다.
+
+키보드 입력으로 발생시킬 수 있는 시그널은 Ctrl+C 외에도 아래의 몇가지가 있다.
+
+| Ctrl+C | SIGINT | 프로세스를 종료시킨다. |
+| --- | --- | --- |
+| Ctrl+Z | SIGSTP | 프로세스를 중단시킨다. |
+| Ctrl+\ | SIGQUIT | core dump를 남기고 프로세스를 종료시킨다. |
+| ctrl+D |  | "end of file"을 의미한다. 터미널이 입력 상태이고, 라인의 맨 처음일 때에만 작동한다. (‘\0’를 STDIN에 입력하는 것) |
+
+**일반적으로 프로세스의 경우 `SIGINT`(Ctrl+C) 시그널을 통하여 수행중인 프로세스(터미널)를 종료시킬 수 있지만 minishell의 경우엔 우리가 만든 minishell만 종료되고 터미널은 여전히 살아있도록 해야한다. 이런식으로 시그널을 받은 프로세스가 취할 행동을 바꿔주는게 handler 함수이다.**
+
+- 하지만 fork()를 통하여 일반 명령을 수행하는 자식 프로세스의 경우엔 작업 도중에 수행을 중단시킬 수 있어야 하므로 자식 프로세스의 경우에 한해서만 `SIGINT`를 DEFAULT로 설정한다.
+- 자식 프로세스가 백그라운드로 수행중일 때는 쉘의 뒤편에서 암묵적으로 수행하는 프로세스이므로 `SIGINT` 시그널을 무시하도록 설정한다.
+
+### readline()
+
+`char *readline(const char str*);`
+
+str를 출력하고 프롬프트를 열어서 표준입력으로 문자열을 입력받는다. 개행(엔터)를 받으면 지금까지 입력된 문자열을 리턴한다. 문자열을 입력받기 전까지는 다음 코드로 진행되지 않는다. `rl_replace_line`, `rl_redisplay` 등으로 프롬프트가 비워져도 계속 문자열을 받는 상태가 된다.
+
+### rl_replace_line()
+
+`void rl_replace_line(const char str*, int);`
+
+GNU 라이브러리에만 들어있는 함수이다.
+
+현재까지 입력된 프롬프트의 문자열을 str로 바꿔준다.
+
+ctrl + C 처럼 프롬프트를 입력하지는 않고 새로운 프롬프트를 출력해야 할 때 `rl_replace_line(””, 1);`처리를 해준다면 새로운 프롬프트를 비워줄 수 있게 된다.
+
+### rl_on_new_line()
+
+`int rl_on_new_line(void);`
+
+`rl_redisplay`를 실행하기 위해 필요한 함수이다
+
+### rl_redisplay()
+
+`void rl_redisplay(void);`
+
+rl_replace_line를 출력하지 않으면 작동하지 않는다. `readline` 함수의 인자로 넣은 문자열을 다시 출력한다.
+
+### add_history()
+
+`int add_history(const char *);`
+
+인자에 넣은 문자열을 history로 저장한다.
+
+프롬프트가 열린 상태에서 키보드 방향키 위 아래를 통해 이제껏 프롬프트에 입력한 문자열을 불러올 수 있다. 스택처럼 가장 마지막에 넣은 문자열부터 불러온다.
